@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="placeholder">PH</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_item_name">New task</string>
+    <string name="edit_item_name">Edit task</string>
+    <string name="title_hint">Title</string>
+    <string name="desc_hint">Description</string>
+    <string name="picker_date">Date</string>
+    <string name="save_button">Save</string>
+    <string name="picker_time">Time</string>
+    <string name="picker_time_title">Task target time</string>
+    <string name="picker_date_title">Last day active</string>
+
+</resources>
