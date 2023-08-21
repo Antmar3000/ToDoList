@@ -1,16 +1,33 @@
 package com.example.todolist
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 import java.time.LocalTime
-import java.util.UUID
-import kotlin.math.exp
+import java.time.format.DateTimeFormatter
 
-data class TodoItem (
+@Entity(tableName = "todo_item_table")
+class TodoItem(
 
-    var title : String,
-    var description : String,
-    var targetTime : LocalTime?,
-    var expirationDate : LocalDate?,
-    var id : UUID = UUID.randomUUID()
-    ){
+    @ColumnInfo ("title") var title: String,
+    @ColumnInfo("description")var description: String,
+    @ColumnInfo("targetTimeString")var targetTimeString: String?,
+    @ColumnInfo("expirationDate")var expirationDateString: String?,
+    @PrimaryKey(true)var id: Int = 0
+) {
+
+    fun targetTime(): LocalTime? = if (targetTimeString == null) null else LocalTime.parse(targetTimeString, timeFormatter)
+    fun expirationDate() : LocalDate? = if (expirationDateString == null) null else LocalDate.parse(expirationDateString, dateFormatter)
+
+//    fun targetTime(): LocalTime? = if (targetTimeString == null) null
+//    else LocalTime.parse(targetTimeString)
+//
+//    fun expirationDate() : LocalDate? = if (expirationDateString == null) null
+//        else LocalDate.parse(expirationDateString)
+
+    companion object {
+        val timeFormatter : DateTimeFormatter = DateTimeFormatter.ISO_TIME
+        val dateFormatter : DateTimeFormatter = DateTimeFormatter.ISO_DATE
+    }
 }
