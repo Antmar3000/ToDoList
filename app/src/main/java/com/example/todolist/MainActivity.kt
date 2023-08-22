@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val todoViewModel: TodoViewModel by viewModels {
         TodoItemModelFactory((application as TodoApplication).repository)
-}
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +50,15 @@ class MainActivity : AppCompatActivity() {
             todoViewModel.updateTodoItem(todoItem)
         }
 
-        override fun setChecked(todoItem: TodoItem, isChecked : Boolean) {
-            if (isChecked) {todoItem.isChecked = true
-            todoViewModel.updateTodoItem(todoItem) }
-            else todoItem.isChecked = false
+        override fun setChecked(todoItem: TodoItem, isChecked: Boolean) {
+            if (isChecked) {
+                todoItem.isChecked = true
+                todoViewModel.updateTodoItem(todoItem)
+            } else todoItem.isChecked = false
             todoViewModel.updateTodoItem(todoItem)
         }
 
     }
-
-
 
 
 }

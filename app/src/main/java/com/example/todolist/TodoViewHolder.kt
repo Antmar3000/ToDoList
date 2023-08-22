@@ -20,10 +20,19 @@ class TodoViewHolder(
     private val dateFormat = DateTimeFormatter.ofPattern("dd-MM-yy")
 
     fun bindItem(todoItem: TodoItem) = with(binding) {
-        buttonDestroy.visibility = View.INVISIBLE
         titleTextView.text = todoItem.title
         descriptionTextView.text = todoItem.description
-        checkBox.isChecked = todoItem.isChecked
+        if (todoItem.isChecked) {
+            checkBox.isChecked = true
+            titleTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            descriptionTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            buttonDestroy.visibility = View.VISIBLE
+        } else {
+            checkBox.isChecked = false
+            titleTextView.paintFlags = 0
+            descriptionTextView.paintFlags = 0
+            buttonDestroy.visibility = View.INVISIBLE
+        }
 
         binding.apply {
             buttonDestroy.setOnClickListener { clickListener.deleteTodoItem(todoItem) }
@@ -41,13 +50,9 @@ class TodoViewHolder(
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) with(binding) {
-                titleTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                descriptionTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                buttonDestroy.visibility = View.VISIBLE
+                clickListener.setChecked(todoItem, isChecked)
             } else with(binding) {
-                titleTextView.paintFlags = 0
-                descriptionTextView.paintFlags = 0
-                buttonDestroy.visibility = View.INVISIBLE
+                clickListener.setChecked(todoItem, isChecked)
             }
         }
 
