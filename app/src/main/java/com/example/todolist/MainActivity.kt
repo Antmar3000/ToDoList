@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.databinding.ActivityMainBinding
 import androidx.activity.viewModels
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,8 +46,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun expireTodoItem(todoItem: TodoItem) {
-            TODO("Not yet implemented")
+            todoItem.expirationDateString = TodoItem.dateFormatter.format(LocalDate.now())
+            todoViewModel.updateTodoItem(todoItem)
         }
+
+        override fun setChecked(todoItem: TodoItem, isChecked : Boolean) {
+            if (isChecked) {todoItem.isChecked = true
+            todoViewModel.updateTodoItem(todoItem) }
+            else todoItem.isChecked = false
+            todoViewModel.updateTodoItem(todoItem)
+        }
+
     }
 
 

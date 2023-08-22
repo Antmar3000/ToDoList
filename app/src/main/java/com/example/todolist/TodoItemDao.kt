@@ -17,14 +17,14 @@ interface TodoItemDao {
 
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTodoItem (todoItem: TodoItem){
-    }
+    suspend fun insertTodoItem (todoItem: TodoItem)
+
 
     @Update
-    suspend fun updateTodoItem (todoItem: TodoItem) {
-    }
+    suspend fun updateTodoItem (todoItem: TodoItem)
+
 
     @Delete
-    suspend fun deleteTodoItem (todoItem: TodoItem) {
-    }
+    suspend fun deleteTodoItem (todoItem: TodoItem)
+
 }

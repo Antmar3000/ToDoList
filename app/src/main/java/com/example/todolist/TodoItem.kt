@@ -14,17 +14,12 @@ class TodoItem(
     @ColumnInfo("description")var description: String,
     @ColumnInfo("targetTimeString")var targetTimeString: String?,
     @ColumnInfo("expirationDate")var expirationDateString: String?,
+    @ColumnInfo("isChecked") var isChecked : Boolean,
     @PrimaryKey(true)var id: Int = 0
 ) {
 
     fun targetTime(): LocalTime? = if (targetTimeString == null) null else LocalTime.parse(targetTimeString, timeFormatter)
     fun expirationDate() : LocalDate? = if (expirationDateString == null) null else LocalDate.parse(expirationDateString, dateFormatter)
-
-//    fun targetTime(): LocalTime? = if (targetTimeString == null) null
-//    else LocalTime.parse(targetTimeString)
-//
-//    fun expirationDate() : LocalDate? = if (expirationDateString == null) null
-//        else LocalDate.parse(expirationDateString)
 
     companion object {
         val timeFormatter : DateTimeFormatter = DateTimeFormatter.ISO_TIME
