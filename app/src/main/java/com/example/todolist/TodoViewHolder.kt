@@ -3,8 +3,6 @@ package com.example.todolist
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.TodoItemBinding
 import java.time.LocalDate
@@ -49,11 +47,7 @@ class TodoViewHolder(
         }
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) with(binding) {
-                clickListener.setChecked(todoItem, isChecked)
-            } else with(binding) {
-                clickListener.setChecked(todoItem, isChecked)
-            }
+            clickListener.setChecked(todoItem, isChecked)
         }
 
         binding.timeTextView.text = todoItem.targetTime()?.let { timeFormat.format(it) }.orEmpty()
