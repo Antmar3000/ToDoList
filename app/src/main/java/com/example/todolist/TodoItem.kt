@@ -22,7 +22,7 @@ class TodoItem(
     fun expirationDate() : LocalDate? = if (expirationDateString == null) null else LocalDate.parse(expirationDateString, dateFormatter)
 
     companion object {
-        val timeFormatter : DateTimeFormatter = DateTimeFormatter.ISO_TIME
+        val timeFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val dateFormatter : DateTimeFormatter = DateTimeFormatter.ISO_DATE
     }
 }

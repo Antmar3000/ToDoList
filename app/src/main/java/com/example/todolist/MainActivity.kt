@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonAddTodo.setOnClickListener {
-            NewTodoFragment(null).show(supportFragmentManager, "newTodoItemTag")
+            NewTodoFragment(null).show(supportFragmentManager, Constances.NEW_TODO_ITEM_TAG)
         }
 
         setRecyclerView()
@@ -36,9 +36,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private val clickListener = object : OnClickListener {
         override fun editTodoItem(todoItem: TodoItem) {
-            NewTodoFragment(todoItem).show(supportFragmentManager, "NewTodoItemTag")
+            NewTodoFragment(todoItem).show(supportFragmentManager, Constances.EDIT_TODO_ITEM_TAG)
         }
 
         override fun deleteTodoItem(todoItem: TodoItem) {
