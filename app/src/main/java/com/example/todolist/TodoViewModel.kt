@@ -11,6 +11,7 @@ import kotlin.IllegalArgumentException
 class TodoViewModel(private val repository: TodoItemRepository) : ViewModel() {
 
     var todoItems: LiveData<List<TodoItem>> = repository.allTodoItems.asLiveData()
+//    var checkedTodoItems : LiveData<List<TodoItem>> = repository.checkedTodoItems.asLiveData()
 
     fun addTodoItem(todoItem: TodoItem) = viewModelScope.launch {
         repository.insertTodoItem(todoItem)

@@ -15,6 +15,9 @@ interface TodoItemDao {
     @Query ("SELECT * FROM todo_item_table ORDER BY id ASC")
     fun allTodoItems () : Flow<List<TodoItem>>
 
+//    @Query ("SELECT * FROM todo_item_table WHERE isChecked ORDER BY id ASC")
+//    fun checkedTodoItems () : Flow<List<TodoItem>>
+
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTodoItem (todoItem: TodoItem)

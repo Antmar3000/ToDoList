@@ -22,22 +22,30 @@ class MainActivity : AppCompatActivity() {
             NewTodoFragment(null).show(supportFragmentManager, Constances.NEW_TODO_ITEM_TAG)
         }
 
-        setRecyclerView()
-
-    }
-
-    private fun setRecyclerView() {
+        val adapter = TodoAdapter(listener)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         todoViewModel.todoItems.observe(this) {
-            binding.recyclerView.apply {
-                layoutManager = LinearLayoutManager(applicationContext)
-                adapter = TodoAdapter(it, clickListener)
-
-            }
+            adapter.submitList(it)
         }
+
+//        setRecyclerView()
+
     }
+//    private fun setRecyclerView() {
+//        val adapter = TodoAdapter(listener)
+//        binding.recyclerView.adapter = adapter
+//        todoViewModel.todoItems.observe(this) {
+//            adapter.submitList(it)
+//            binding.recyclerView.apply {
+//                layoutManager = LinearLayoutManager(applicationContext)
+//            }
+//
+//        }
+//    }
 
 
-    private val clickListener = object : OnClickListener {
+    private val listener = object : OnClickListener {
         override fun editTodoItem(todoItem: TodoItem) {
             NewTodoFragment(todoItem).show(supportFragmentManager, Constances.EDIT_TODO_ITEM_TAG)
         }

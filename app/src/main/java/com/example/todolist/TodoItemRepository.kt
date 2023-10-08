@@ -2,10 +2,12 @@ package com.example.todolist
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 
 class TodoItemRepository (private val todoItemDao : TodoItemDao) {
 
     val allTodoItems : Flow<List<TodoItem>> = todoItemDao.allTodoItems()
+//    val checkedTodoItems : Flow<List<TodoItem>> = todoItemDao.checkedTodoItems()
 
     @WorkerThread
     suspend fun insertTodoItem (todoItem: TodoItem){

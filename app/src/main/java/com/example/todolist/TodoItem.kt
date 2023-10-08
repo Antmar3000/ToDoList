@@ -8,7 +8,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "todo_item_table")
-class TodoItem(
+data class TodoItem(
 
     @ColumnInfo ("title") var title: String,
     @ColumnInfo("description")var description: String,

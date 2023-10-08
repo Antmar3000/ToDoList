@@ -9,8 +9,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class TodoViewHolder(
-    private val binding: TodoItemBinding,
-    private val clickListener: OnClickListener
+    private val binding: TodoItemBinding, private val clickListener: OnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -41,8 +40,9 @@ class TodoViewHolder(
 
         binding.itemCardView.apply {
             todoItem.expirationDate()?.let {
-                if (it.isBefore(LocalDate.now()) || it.isEqual(LocalDate.now()))
-                    setCardBackgroundColor(Color.GRAY)
+                if (it.isBefore(LocalDate.now()) || it.isEqual(LocalDate.now())) setCardBackgroundColor(
+                    Color.GRAY
+                )
             }
         }
 
@@ -56,5 +56,6 @@ class TodoViewHolder(
             todoItem.expirationDate()?.let { dateFormat.format(it) }.orEmpty()
 
     }
+
 
 }
