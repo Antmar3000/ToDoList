@@ -3,6 +3,7 @@ package com.example.todolist
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.TodoItemBinding
 import java.time.LocalDate
@@ -17,6 +18,14 @@ class TodoViewHolder(
     private val dateFormat = DateTimeFormatter.ofPattern("dd-MM-yy")
 
     fun bindItem(todoItem: TodoItem) = with(binding) {
+        when (todoItem.type) {
+            0 -> {typeTextView.setText(R.string.type_main)
+            typeTextView.setTextColor(Color.BLACK)}
+            1 -> {typeTextView.setText(R.string.type_work)
+            typeTextView.setTextColor(Color.RED)}
+            2 -> {typeTextView.setText(R.string.type_fun)
+            typeTextView.setTextColor(Color.MAGENTA)}
+        }
         titleTextView.text = todoItem.title
         descriptionTextView.text = todoItem.description
         if (todoItem.isChecked) {
@@ -31,29 +40,22 @@ class TodoViewHolder(
             buttonDestroy.visibility = View.INVISIBLE
         }
 
-        binding.apply {
-            buttonDestroy.setOnClickListener { clickListener.deleteTodoItem(todoItem) }
-            itemCardView.setOnClickListener { clickListener.editTodoItem(todoItem) }
-            buttonExpire.setOnClickListener { clickListener.expireTodoItem(todoItem) }
-        }
+        buttonDestroy.setOnClickListener { clickListener.deleteTodoItem(todoItem) }
+        itemCardView.setOnClickListener { clickListener.editTodoItem(todoItem) }
+        buttonExpire.setOnClickListener { clickListener.expireTodoItem(todoItem) }
 
-
-        binding.itemCardView.apply {
-            todoItem.expirationDate()?.let {
-                if (it.isBefore(LocalDate.now()) || it.isEqual(LocalDate.now())) setCardBackgroundColor(
-                    Color.GRAY
-                )
-            }
-        }
+        val isExpired = todoItem.expirationDate()?.let { it.isBefore(LocalDate.now()) || it.isEqual(LocalDate.now()) } ?: false
+        itemCardView.setCardBackgroundColor(
+            if (isExpired) Color.GRAY else Color.WHITE
+        )
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             clickListener.setChecked(todoItem, isChecked)
         }
 
-        binding.timeTextView.text = todoItem.targetTime()?.let { timeFormat.format(it) }.orEmpty()
+        timeTextView.text = todoItem.targetTime()?.let { timeFormat.format(it) }.orEmpty()
 
-        binding.dateTextView.text =
-            todoItem.expirationDate()?.let { dateFormat.format(it) }.orEmpty()
+        dateTextView.text = todoItem.expirationDate()?.let { dateFormat.format(it) }.orEmpty()
 
     }
 

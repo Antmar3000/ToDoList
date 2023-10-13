@@ -5,13 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.todolist.room.TodoItemRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlin.IllegalArgumentException
 
 class TodoViewModel(private val repository: TodoItemRepository) : ViewModel() {
 
-    var todoItems: LiveData<List<TodoItem>> = repository.allTodoItems.asLiveData()
-//    var checkedTodoItems : LiveData<List<TodoItem>> = repository.checkedTodoItems.asLiveData()
+    var allTodoItems: LiveData<List<TodoItem>> = repository.allTodoItems.asLiveData()
+    var mainTodoItems : LiveData<List<TodoItem>> = repository.mainTodoItems.asLiveData()
+    var workTodoItems : LiveData<List<TodoItem>> = repository.workTodoItems.asLiveData()
+    var funTodoItems : LiveData<List<TodoItem>> = repository.funTodoItem.asLiveData()
 
     fun addTodoItem(todoItem: TodoItem) = viewModelScope.launch {
         repository.insertTodoItem(todoItem)

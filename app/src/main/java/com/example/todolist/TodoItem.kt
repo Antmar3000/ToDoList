@@ -9,13 +9,13 @@ import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "todo_item_table")
 data class TodoItem(
-
-    @ColumnInfo ("title") var title: String,
-    @ColumnInfo("description")var description: String,
-    @ColumnInfo("targetTimeString")var targetTimeString: String?,
-    @ColumnInfo("expirationDate")var expirationDateString: String?,
-    @ColumnInfo("isChecked") var isChecked : Boolean,
-    @PrimaryKey(true)var id: Int = 0
+    @ColumnInfo("title") val title: String,
+    @ColumnInfo("description")val description: String,
+    @ColumnInfo("targetTimeString")val targetTimeString: String?,
+    @ColumnInfo("expirationDate")val expirationDateString: String?,
+    @ColumnInfo("isChecked") val isChecked : Boolean,
+    @ColumnInfo("type", defaultValue = "0") val type : Int = 0,
+    @PrimaryKey(true)val id: Int = 0
 ) {
 
     fun targetTime(): LocalTime? = if (targetTimeString == null) null else LocalTime.parse(targetTimeString, timeFormatter)
